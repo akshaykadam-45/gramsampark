@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 const translations = {
   en: {
-    appName: 'ग्राम संपर्क',
+    appName: 'GramSampark',
     welcome: 'Welcome, Villager!',
     portalDescription: 'Your one-stop portal for all village-related information.',
     informationCategories: 'Information Categories',
@@ -28,7 +28,7 @@ const translations = {
     copyright: `© ${new Date().getFullYear()} GramSampark. All rights reserved.`
   },
   mr: {
-    appName: 'ग्राम संपर्क',
+    appName: 'ग्रामसंपर्क',
     welcome: 'नमस्कार, ग्रामस्थ!',
     portalDescription: 'सर्व गाव-संबंधित माहितीसाठी आपले एक-स्टॉप पोर्टल.',
     informationCategories: 'माहिती श्रेणी',
