@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { getSummary } from "@/lib/actions";
 import { Wand2, LoaderCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLocalization } from "@/hooks/use-localization";
 
 type State = {
   summary?: string;
@@ -21,6 +22,7 @@ const initialState: State = {
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const { t } = useLocalization();
 
   return (
     <Button type="submit" disabled={pending} className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground">
@@ -29,7 +31,7 @@ function SubmitButton() {
       ) : (
         <Wand2 className="mr-2 h-4 w-4" />
       )}
-      {pending ? "Summarizing..." : "Summarize"}
+      {pending ? t('summarizing') : t('summarize')}
     </Button>
   );
 }
@@ -38,6 +40,7 @@ export function NewsSummarizer() {
   const [state, formAction] = useActionState(getSummary, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
+  const { t, language } = useLocalization();
 
   useEffect(() => {
     if (state.error) {
@@ -54,6 +57,11 @@ export function NewsSummarizer() {
 
   const sampleArticle = "A new government scheme has been launched to provide financial assistance to small and marginal farmers. The scheme aims to double the income of farmers by 2025. It includes provisions for crop insurance, subsidies on seeds and fertilizers, and better access to credit facilities. The application process is online and requires farmers to register on the official portal with their land details and bank account information. Officials have urged eligible farmers to apply before the deadline to avail the benefits. This initiative is expected to bring significant relief to the agricultural community, which has been facing challenges due to unpredictable weather patterns and market fluctuations.";
 
+  const formActionWithLang = (formData: FormData) => {
+    formData.append('targetLanguage', language);
+    startTransition(() => formAction(formData));
+  }
+
   return (
     <Card className="w-full shadow-lg">
       <CardHeader>
@@ -62,14 +70,14 @@ export function NewsSummarizer() {
                 <Wand2 className="h-6 w-6 text-accent"/>
             </div>
             <div>
-                <CardTitle className="text-xl font-headline">AI News Summarizer</CardTitle>
+                <CardTitle className="text-xl font-headline">{t('aiNewsSummarizer')}</CardTitle>
                 <CardDescription>
-                Paste a news article below to get a quick, easy-to-understand summary.
+                {t('summarizerDesc')}
                 </CardDescription>
             </div>
         </div>
       </CardHeader>
-      <form action={(formData) => startTransition(() => formAction(formData))} ref={formRef}>
+      <form action={formActionWithLang} ref={formRef}>
         <CardContent>
           <Textarea
             name="articleContent"
@@ -82,7 +90,7 @@ export function NewsSummarizer() {
         </CardContent>
         <CardFooter className="flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <p className="text-xs text-muted-foreground">
-                Summaries are AI-generated and may contain inaccuracies.
+                {t('summariesDisclaimer')}
             </p>
           <SubmitButton />
         </CardFooter>
@@ -94,7 +102,7 @@ export function NewsSummarizer() {
             </div>
             <CardContent className="pt-6">
                 <div className="mt-4 p-4 border rounded-lg bg-background">
-                    <h3 className="font-bold mb-2 font-headline">Summary:</h3>
+                    <h3 className="font-bold mb-2 font-headline">{t('summary')}</h3>
                     <p className="text-sm leading-relaxed">{state.summary}</p>
 
                 </div>

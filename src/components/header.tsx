@@ -11,6 +11,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React from "react";
 import { useLoginDialog } from "@/hooks/use-login-dialog";
+import { useLocalization } from "@/hooks/use-localization";
 
 function LogoIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -32,8 +33,8 @@ function LogoIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 export function Header() {
-  const [language, setLanguage] = React.useState("English");
   const { onOpen } = useLoginDialog();
+  const { language, setLanguage, t } = useLocalization();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -49,19 +50,19 @@ export function Header() {
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" size="icon">
                             <Globe className="h-5 w-5" />
-                            <span className="sr-only">Change language</span>
+                            <span className="sr-only">{t('changeLanguage')}</span>
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem onSelect={() => setLanguage("English")}>
-                            English
+                        <DropdownMenuItem onSelect={() => setLanguage("en")}>
+                            {t('english')}
                         </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={() => setLanguage("Marathi")}>
-                            मराठी
+                        <DropdownMenuItem onSelect={() => setLanguage("mr")}>
+                            {t('marathi')}
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                 <Button onClick={onOpen}>Login</Button>
+                 <Button onClick={onOpen}>{t('login')}</Button>
             </nav>
 
             <div className="md:hidden">
@@ -69,7 +70,7 @@ export function Header() {
                     <SheetTrigger asChild>
                         <Button variant="ghost" size="icon">
                             <Menu className="h-6 w-6" />
-                            <span className="sr-only">Open menu</span>
+                            <span className="sr-only">{t('openMenu')}</span>
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right">
@@ -81,20 +82,20 @@ export function Header() {
                              <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="outline" className="w-full justify-between">
-                                        <span>{language}</span>
+                                        <span>{language === 'en' ? t('english') : t('marathi')}</span>
                                         <Globe className="h-5 w-5" />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-56">
-                                    <DropdownMenuItem onSelect={() => setLanguage("English")}>
-                                        English
+                                    <DropdownMenuItem onSelect={() => setLanguage("en")}>
+                                        {t('english')}
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem onSelect={() => setLanguage("Marathi")}>
-                                        मराठी
+                                    <DropdownMenuItem onSelect={() => setLanguage("mr")}>
+                                        {t('marathi')}
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
-                            <Button className="w-full" onClick={onOpen}>Login</Button>
+                            <Button className="w-full" onClick={onOpen}>{t('login')}</Button>
                         </div>
                     </SheetContent>
                 </Sheet>

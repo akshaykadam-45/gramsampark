@@ -1,9 +1,11 @@
+"use client";
+
 import { Megaphone } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useLocalization } from '@/hooks/use-localization';
 
 export function AnnouncementBanner() {
-    // Mock data for announcements
-    const announcement = "Village meeting on Sunday at 10 AM to discuss water supply. All are requested to attend.";
+    const { t } = useLocalization();
     
     return (
         <section className="py-8">
@@ -13,8 +15,8 @@ export function AnnouncementBanner() {
                         <Megaphone className="h-6 w-6 text-accent-foreground" />
                     </div>
                     <div className="text-center sm:text-left">
-                        <h2 className="font-bold text-accent">Village Announcement</h2>
-                        <p className="text-sm text-foreground/80">{announcement}</p>
+                        <h2 className="font-bold text-accent">{t('villageAnnouncement')}</h2>
+                        <p className="text-sm text-foreground/80">{t('announcementText')}</p>
                     </div>
                 </CardContent>
             </Card>

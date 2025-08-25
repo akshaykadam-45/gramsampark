@@ -5,6 +5,7 @@ import { z } from "zod";
 
 const SummarizeSchema = z.object({
   articleContent: z.string().min(100, "Article content must be at least 100 characters long."),
+  targetLanguage: z.string().default("en"),
 });
 
 type State = {
@@ -15,6 +16,7 @@ type State = {
 export async function getSummary(prevState: State, formData: FormData): Promise<State> {
   const validatedFields = SummarizeSchema.safeParse({
     articleContent: formData.get("articleContent"),
+    targetLanguage: formData.get("targetLanguage"),
   });
 
   if (!validatedFields.success) {
@@ -26,7 +28,7 @@ export async function getSummary(prevState: State, formData: FormData): Promise<
   try {
     const input: SummarizeArticleInput = {
       articleContent: validatedFields.data.articleContent,
-      targetLanguage: "en",
+      targetLanguage: validatedFields.data.targetLanguage,
     };
     const result = await summarizeArticle(input);
     return { summary: result.summary };

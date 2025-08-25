@@ -5,25 +5,27 @@ import { Newspaper, Leaf, Briefcase, HeartPulse, BookOpen, Building2 } from "luc
 import { NewsSummarizer } from './news-summarizer';
 import type { LucideIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useLocalization, type TranslationKey } from "@/hooks/use-localization";
 
 interface Category {
-  title: string;
+  titleKey: TranslationKey;
+  descriptionKey: TranslationKey;
   icon: LucideIcon;
-  description: string;
   href: string;
 }
 
 const categories: Category[] = [
-  { title: "Farmer Schemes", icon: Leaf, description: "Latest government schemes for farmers.", href: "/farmer-schemes" },
-  { title: "Job Updates", icon: Briefcase, description: "Find local and government job openings.", href: "/job-updates" },
-  { title: "Health & Wellness", icon: HeartPulse, description: "Health camps and important updates.", href: "/health-wellness" },
-  { title: "Education", icon: BookOpen, description: "Information on schools and scholarships.", href: "/education" },
-  { title: "Local News", icon: Newspaper, description: "Updates and news from your area.", href: "/local-news" },
-  { title: "Village Directory", icon: Building2, description: "Contact info for local services.", href: "/village-directory" },
+  { titleKey: "farmerSchemes", descriptionKey: "farmerSchemesDesc", icon: Leaf, href: "/farmer-schemes" },
+  { titleKey: "jobUpdates", descriptionKey: "jobUpdatesDesc", icon: Briefcase, href: "/job-updates" },
+  { titleKey: "healthWellness", descriptionKey: "healthWellnessDesc", icon: HeartPulse, href: "/health-wellness" },
+  { titleKey: "education", descriptionKey: "educationDesc", icon: BookOpen, href: "/education" },
+  { titleKey: "localNews", descriptionKey: "localNewsDesc", icon: Newspaper, href: "/local-news" },
+  { titleKey: "villageDirectory", descriptionKey: "villageDirectoryDesc", icon: Building2, href: "/village-directory" },
 ];
 
-function CategoryCard({ title, icon: Icon, description, href }: Category) {
+function CategoryCard({ titleKey, descriptionKey, icon: Icon, href }: Category) {
   const router = useRouter();
+  const { t } = useLocalization();
   
   const handleClick = () => {
     router.push(href);
@@ -38,10 +40,10 @@ function CategoryCard({ title, icon: Icon, description, href }: Category) {
         <div className="bg-primary/10 p-3 rounded-full transition-colors group-hover:bg-primary">
           <Icon className="w-6 h-6 text-primary transition-colors group-hover:text-primary-foreground" />
         </div>
-        <CardTitle className="text-lg font-semibold font-headline">{title}</CardTitle>
+        <CardTitle className="text-lg font-semibold font-headline">{t(titleKey)}</CardTitle>
       </CardHeader>
       <CardContent className="flex-grow">
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="text-sm text-muted-foreground">{t(descriptionKey)}</p>
       </CardContent>
     </Card>
   );
@@ -52,7 +54,7 @@ export function DashboardCategories() {
     <div className="space-y-12">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category) => (
-          <CategoryCard key={category.title} {...category} />
+          <CategoryCard key={category.titleKey} {...category} />
         ))}
       </div>
       <NewsSummarizer />
