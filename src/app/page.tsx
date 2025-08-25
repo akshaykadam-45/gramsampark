@@ -14,8 +14,8 @@ export default function Home() {
     <div className="relative flex flex-col min-h-screen bg-background">
       <Image
         src="https://placehold.co/1920x1080.png"
-        alt="Indian village fields"
-        data-ai-hint="Indian village fields"
+        alt="Indian village fields with huts at sunrise"
+        data-ai-hint="Indian village greenery"
         fill
         className="object-cover object-center -z-10"
       />
