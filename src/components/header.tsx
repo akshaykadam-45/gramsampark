@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React from "react";
+import { useLoginDialog } from "@/hooks/use-login-dialog";
 
 function LogoIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -32,6 +33,7 @@ function LogoIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export function Header() {
   const [language, setLanguage] = React.useState("English");
+  const { onOpen } = useLoginDialog();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -59,7 +61,7 @@ export function Header() {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                 <Button>Login</Button>
+                 <Button onClick={onOpen}>Login</Button>
             </nav>
 
             <div className="md:hidden">
@@ -92,7 +94,7 @@ export function Header() {
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
-                            <Button className="w-full">Login</Button>
+                            <Button className="w-full" onClick={onOpen}>Login</Button>
                         </div>
                     </SheetContent>
                 </Sheet>

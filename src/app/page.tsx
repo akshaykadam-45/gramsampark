@@ -1,6 +1,7 @@
 import { Header } from "@/components/header";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { DashboardCategories } from "@/components/dashboard-categories";
+import { LoginDialog } from "@/components/login-dialog";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
           © {new Date().getFullYear()} GramSampark. All rights reserved.
         </div>
       </footer>
+      <LoginDialog />
     </div>
   );
 }

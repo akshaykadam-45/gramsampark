@@ -1,26 +1,39 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Newspaper, Leaf, Briefcase, HeartPulse, BookOpen, Building2 } from "lucide-react";
 import { NewsSummarizer } from './news-summarizer';
 import type { LucideIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface Category {
   title: string;
   icon: LucideIcon;
   description: string;
+  href: string;
 }
 
 const categories: Category[] = [
-  { title: "Farmer Schemes", icon: Leaf, description: "Latest government schemes for farmers." },
-  { title: "Job Updates", icon: Briefcase, description: "Find local and government job openings." },
-  { title: "Health & Wellness", icon: HeartPulse, description: "Health camps and important updates." },
-  { title: "Education", icon: BookOpen, description: "Information on schools and scholarships." },
-  { title: "Local News", icon: Newspaper, description: "Updates and news from your area." },
-  { title: "Village Directory", icon: Building2, description: "Contact info for local services." },
+  { title: "Farmer Schemes", icon: Leaf, description: "Latest government schemes for farmers.", href: "/farmer-schemes" },
+  { title: "Job Updates", icon: Briefcase, description: "Find local and government job openings.", href: "/job-updates" },
+  { title: "Health & Wellness", icon: HeartPulse, description: "Health camps and important updates.", href: "/health-wellness" },
+  { title: "Education", icon: BookOpen, description: "Information on schools and scholarships.", href: "/education" },
+  { title: "Local News", icon: Newspaper, description: "Updates and news from your area.", href: "/local-news" },
+  { title: "Village Directory", icon: Building2, description: "Contact info for local services.", href: "/village-directory" },
 ];
 
-function CategoryCard({ title, icon: Icon, description }: Category) {
+function CategoryCard({ title, icon: Icon, description, href }: Category) {
+  const router = useRouter();
+  
+  const handleClick = () => {
+    router.push(href);
+  };
+
   return (
-    <Card className="hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full flex flex-col group">
+    <Card 
+      className="hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full flex flex-col group"
+      onClick={handleClick}
+    >
       <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-2">
         <div className="bg-primary/10 p-3 rounded-full transition-colors group-hover:bg-primary">
           <Icon className="w-6 h-6 text-primary transition-colors group-hover:text-primary-foreground" />
