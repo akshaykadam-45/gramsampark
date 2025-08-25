@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 const translations = {
   en: {
-    appName: 'GramSampark',
+    appName: 'ग्राम संपर्क',
     welcome: 'Welcome, Villager!',
     portalDescription: 'Your one-stop portal for all village-related information.',
     informationCategories: 'Information Categories',
@@ -55,21 +55,19 @@ const translations = {
   }
 };
 
-type Language = 'en' | 'mr';
 export type TranslationKey = keyof typeof translations.en;
 
-
 interface LocalizationStore {
-  language: Language;
+  language: 'en' | 'mr';
   translations: typeof translations.en;
-  setLanguage: (language: Language) => void;
+  setLanguage: (language: 'en' | 'mr') => void;
   t: (key: TranslationKey) => string;
 }
 
 export const useLocalization = create<LocalizationStore>((set, get) => ({
   language: 'en',
   translations: translations.en,
-  setLanguage: (language: Language) => {
+  setLanguage: (language: 'en' | 'mr') => {
     set({ language, translations: translations[language] });
   },
   t: (key: TranslationKey) => {
