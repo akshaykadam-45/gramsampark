@@ -41,7 +41,7 @@ export function Header() {
       <div className="container flex h-16 max-w-7xl items-center justify-between">
         <div className="flex items-center gap-3">
             <LogoIcon className="h-7 w-7 text-primary" />
-            <h1 className="text-2xl font-bold font-headline text-foreground">GramSampark</h1>
+            <h1 className="text-2xl font-bold font-headline text-foreground">{t('appName')}</h1>
         </div>
 
         <div className="flex items-center gap-2">
@@ -77,7 +77,7 @@ export function Header() {
                         <div className="flex flex-col gap-6 p-6">
                             <div className="flex items-center gap-3 mb-4">
                                 <LogoIcon className="h-7 w-7 text-primary" />
-                                <h1 className="text-2xl font-bold font-headline text-foreground">GramSampark</h1>
+                                <h1 className="text-2xl font-bold font-headline text-foreground">{t('appName')}</h1>
                             </div>
                              <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
