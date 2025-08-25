@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Newspaper, Leaf, Briefcase, HeartPulse, BookOpen, Building2 } from "lucide-react";
-import { NewsSummarizer } from './news-summarizer';
 import type { LucideIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useLocalization, type TranslationKey } from "@/hooks/use-localization";
@@ -57,7 +56,6 @@ export function DashboardCategories() {
           <CategoryCard key={category.titleKey} {...category} />
         ))}
       </div>
-      <NewsSummarizer />
     </div>
   );
 }
