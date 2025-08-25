@@ -1,15 +1,20 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useEffect, useRef, startTransition } from "react";
+import { useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { getSummary } from "@/lib/actions";
 import { Wand2, LoaderCircle } from "lucide-react";
-import { useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 
-const initialState = {
+type State = {
+  summary?: string;
+  error?: string;
+};
+
+const initialState: State = {
   summary: undefined,
   error: undefined,
 };
@@ -30,7 +35,7 @@ function SubmitButton() {
 }
 
 export function NewsSummarizer() {
-  const [state, formAction] = useFormState(getSummary, initialState);
+  const [state, formAction] = useActionState(getSummary, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -64,7 +69,7 @@ export function NewsSummarizer() {
             </div>
         </div>
       </CardHeader>
-      <form action={formAction} ref={formRef}>
+      <form action={(formData) => startTransition(() => formAction(formData))} ref={formRef}>
         <CardContent>
           <Textarea
             name="articleContent"
@@ -91,6 +96,7 @@ export function NewsSummarizer() {
                 <div className="mt-4 p-4 border rounded-lg bg-background">
                     <h3 className="font-bold mb-2 font-headline">Summary:</h3>
                     <p className="text-sm leading-relaxed">{state.summary}</p>
+
                 </div>
             </CardContent>
         </>
